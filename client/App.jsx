@@ -5,11 +5,15 @@ import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from '@apo
 const GRAPHQL_URL = 'http://localhost:4000/graphql';
 
 const ExampleQuery = gql`
+  fragment ExampleFragment on ExampleInterface {
+    __typename
+    id
+    name
+  }
+
   query {
     exampleQuery {
-      __typename
-      id
-      name
+      ...ExampleFragment
     }
   }
 `;
