@@ -1,8 +1,10 @@
 // @ts-check
 import React from 'react';
 import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, gql } from '@apollo/client';
+import { setVerbosity } from 'ts-invariant';
 
 const GRAPHQL_URL = 'http://localhost:4000/graphql';
+setVerbosity( 'debug' );
 
 const ExampleQuery = gql`
   fragment ExampleFragment on ExampleInterface {
@@ -20,7 +22,12 @@ const ExampleQuery = gql`
 
 const client = new ApolloClient({
   uri: GRAPHQL_URL,
-  cache: new InMemoryCache()
+  cache: new InMemoryCache({
+    // Fix the configuration by uncommenting
+    // possibleTypes: {
+    //   ExampleInterface: ['ExampleTypeA', 'ExampleTypeB']
+    // }
+  })
 });
 
 function GQLComponent() {
